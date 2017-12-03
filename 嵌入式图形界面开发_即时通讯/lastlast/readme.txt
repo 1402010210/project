@@ -1,0 +1,1 @@
+打开build-mytest-Desktop_Qt_5_8_0_MinGW_32bit-Debug下的debug目录下的mytest.exe观看即可

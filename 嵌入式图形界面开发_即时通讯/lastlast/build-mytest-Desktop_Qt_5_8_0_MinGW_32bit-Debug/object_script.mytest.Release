@@ -1,0 +1,14 @@
+INPUT(
+./release\main.o
+./release\mywidget.o
+./release\mydialog.o
+./release\chatdialog.o
+./release\register.o
+./release\setdialog.o
+./release\qrc_myimage.o
+./release\moc_mywidget.o
+./release\moc_mydialog.o
+./release\moc_chatdialog.o
+./release\moc_register.o
+./release\moc_setdialog.o
+);

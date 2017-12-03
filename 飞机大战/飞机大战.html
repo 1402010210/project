@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/tool.js"></script>
+    <script>
+        window.onload = function () {
+            window.mDiv = document.createElement('div');
+            mDiv.className = 'plan';
+            document.body.appendChild(mDiv);
+            var nX = 0;
+            var nY = 0;
+            window.onmousemove = function (evt) {
+                evt = evt || window.event;
+                nX = evt.clientX;
+                nY = evt.clientY;
+                mDiv.style.left = nX - 33 + 'px';
+                mDiv.style.top = nY - 40 + 'px';
+            };
+            var eb=0;
+            setInterval(function () {
+                var bullet=document.createElement("div");
+                bullet.className="bullet";
+                document.body.appendChild(bullet);
+                bullet.style.top=nY-40+"px";
+                bullet.style.left=nX-3+"px";
+                bullet.timer=setInterval(function () {
+                    if(bullet.offsetTop<-14){
+                        clearInterval(bullet.timer);
+                        document.body.removeChild(bullet)
+
+                    }else {
+
+                        bullet.style.top = bullet.offsetTop - 20 + "px"
+
+                    }
+
+                },30);
+
+                eb++;
+                //每生成十颗子弹 起飞一架低级
+                if(eb%10==0) {
+
+                    eb=0;
+
+                    var enemyAir = document.createElement("div");
+
+                    enemyAir.className = "enemyAir";
+                    // 随机敌机的位置 敌机的宽度46不让敌机产生在屏幕外
+                    var num = parseInt(Math.random() * (window.innerWidth - 46));
+
+                    enemyAir.style.left = num + "px";
+
+                    document.body.appendChild(enemyAir);
+
+                    enemyAir.timer = setInterval(function () {
+
+                        var isShoot = false;
+
+                        //获取页面中所有子弹
+                        var bullets = document.getElementsByClassName('bullet');
+
+                        for (var i = 0;i < bullets.length;i++){
+
+                            if(impact(bullets[i],enemyAir)){ //碰撞检测
+
+                                clearInterval(bullets[i].timer);
+
+                                document.body.removeChild(bullets[i]);
+
+                                isShoot = true;
+
+                                break; //跳出整个循环
+
+                            }
+
+                        }
+                        if (enemyAir.offsetTop > window.screen.height + 60) {
+
+                            clearInterval(enemyAir.timer);
+
+                            document.body.removeChild(enemyAir);
+
+                        }
+                        else if(isShoot){
+
+                            enemyAir.style.background='url("image/中飞机爆炸.gif") no-repeat center center';
+
+                            clearInterval(enemyAir.timer);
+
+
+                            setTimeout(function () {
+
+                                document.body.removeChild(enemyAir)
+
+                            },300)
+
+                        }else {
+
+                            enemyAir.style.top = enemyAir.offsetTop + 10 + "px";
+
+                        }
+
+                    }, 30)
+
+                }
+
+            },300)
+
+        };
+
+
+
+        function plan() {
+            this.oDiv=document.createElement("div")
+            this.oDiv.className="plan";
+            this.nx=0;
+            this.ny=0;
+            this.init()
+        }
+        plan.prototype.init=function () {
+            document.appendChild(this.oDiv);
+            var that=this;
+            window.onmousemove=function (eve) {
+                eve=eve||window.event;
+                that.nx=eve.clientX;
+                that.ny=eve.clientY;
+                that.oDiv.style.left=that.nx-33+"px";
+                that.oDiv.style.top=that.ny-40+"px"
+            }
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

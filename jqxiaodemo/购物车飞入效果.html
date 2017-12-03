@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .cart-list{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ddd;
+        }
+        .cart-list h4{
+            margin: 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-list img{
+            width: 60px;
+        }
+        .cart-list li{
+            position: relative;
+            height: 200px;
+        }
+        .cart-list .btn-close{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 5px;
+        }
+        .cart-list .btn-close:hover{background-color: #f00;color: #fff}
+    </style>
+    <script src="jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            /*
+            购物车飞入效果
+             1>给添加购物车绑定点击事件
+                1.克隆当前商品图片(用于实现动画效果)
+                   把克隆图片写入页面 同时设置css样式(定位挡住原来的图片)
+                   动画效果 飞入
+                2.购物车列表中删除添加到购物车按钮,添加一个移除按钮
+                  给移除按钮绑定点击事件
+                3.删除用于动画的图片
+             */
+            var $cartList = $('.cart-list ul');
+
+            //1.给添加购物车绑定点击事件
+            $('.good-list button').click(function(){
+                var $currentLi = $(this).closest('li');
+                var $currentImg = $currentLi.find('img');
+                //1.1把克隆图片写入页面
+                var $copyImg = $currentImg.clone();
+                //获取原图片的位置
+                var startPos = $currentImg.offset();
+                //1.2设置css样式
+                $copyImg.css({
+                    position:'absolute',
+                    left:startPos.left,
+                    top:startPos.top
+                });
+                $copyImg.appendTo('body');
+                //1.2动画效果
+                //先获取购物车列表位置
+                var $cartPos = $cartList.offset();
+                //飞入
+                $copyImg.animate({left:$cartPos.left,top:$cartPos.top + $cartList.outerHeight(),width:5,opacity:0.3},function(){
+                // 2.购物车列表中,
+                    var $copyLi = $currentLi.clone();
+                    //删除添加到购物车按钮
+                    $copyLi.find('button').parent().remove();
+                    //添加一个移除按钮
+                    $('<span>').addClass('btn-close').html('&times;').appendTo($copyLi);
+                    //将列表加入 购物车
+                    $copyLi.appendTo($cartList);
+
+                //3.删除用于动画的图片
+                    $copyImg.remove();
+                    $copyImg = null;
+                })
+
+            })
+
+            //利用冒泡写点击事件
+            $cartList.click(function(e){
+                if($(e.target).hasClass('btn-close')){
+                    $(e.target).closest('li').slideUp(1000,function(){
+                       $(this).remove();
+                    })
+                }
+            })
+
+        })
+    </script>
+</head>
+<body>
+<div class="good-list">
+    <h4>产品列表</h4>
+    <ul>
+        <li>
+            <img src="images/g1.jpg">
+            <p>
+                <button>加入购物车</button>
+            </p>
+            <p>nitsuka Tiger鬼塚虎 男女 运动小黄鞋</p>
+        </li>
+        <li>
+            <img src="images/g2.jpg">
+            <p>
+                <button>加入购物车</button>
+            </p>
+            <p>nitsuka Tiger鬼塚虎 男女 运动小绿鞋</p>
+        </li>
+        <li>
+            <img src="images/g3.jpg">
+            <p>
+                <button>加入购物车</button>
+            </p>
+            <p>nitsuka Tiger鬼塚虎 男女 运动小红鞋</p>
+        </li>
+        <li>
+            <img src="images/g4.jpg">
+            <p>
+                <button>加入购物车</button>
+            </p>
+            <p>nitsuka Tiger鬼塚虎 男女 运动小蓝鞋</p>
+        </li>
+        <li>
+            <img src="images/g5.jpg">
+            <p>
+                <button>加入购物车</button>
+            </p>
+            <p>nitsuka Tiger鬼塚虎 男女 运动小黑鞋</p>
+        </li>
+    </ul>
+    <ul class="cart-list">
+        <h4>购物车列表</h4>
+        <ul></ul>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/myImage">
+        <file>image/qq.jpg</file>
+        <file>image/loginback.gif</file>
+        <file>image/qqxiu.png</file>
+        <file>image/chatback.jpg</file>
+        <file>image/touxiang1.png</file>
+    </qresource>
+</RCC>

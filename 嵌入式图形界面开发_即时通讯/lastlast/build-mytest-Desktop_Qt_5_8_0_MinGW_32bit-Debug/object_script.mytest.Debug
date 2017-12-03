@@ -1,0 +1,14 @@
+INPUT(
+./debug\main.o
+./debug\mywidget.o
+./debug\mydialog.o
+./debug\chatdialog.o
+./debug\register.o
+./debug\setdialog.o
+./debug\qrc_myimage.o
+./debug\moc_mywidget.o
+./debug\moc_mydialog.o
+./debug\moc_chatdialog.o
+./debug\moc_register.o
+./debug\moc_setdialog.o
+);

@@ -1,0 +1,24 @@
+.plan{
+    width: 66px;
+    height: 80px;
+    background: url("../image/myplan.gif") no-repeat center top;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    cursor: none;
+}
+.bullet{
+    width: 6px;
+    height: 14px;
+    background: url("../image/bullet1.png") no-repeat center top;
+    position: absolute;
+    left:0;
+    z-index: -1;
+}
+.enemyAir{
+    width: 66px;
+    height: 64px;
+    background: url("../image/enemy3_fly_1.png") no-repeat center;
+    position: absolute;
+    top: 0;
+}
